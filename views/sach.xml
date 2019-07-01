@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="quanlysach_sach_act" model="ir.actions.act_window">
+            <field name="name">Quản lý sách actionwindow</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">quanlysach.book</field>
+            <field name="view_node">tree,form,kanban</field>
+            <!--               <field name="view_node">tree,form,kanban</field>-->
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Tạo cuốn sách đầu tiên của tao
+                </p>
+                <p>
+                    Ngày xửa ngày xưa tao muốn tạo một cuốn sách, tao phải dùng cả một mớ hỗn độn của Odoo để tao
+                    tạo 1 cuốn sách, kèm theo đó là 1 nùi Model, rất là nhức cmn đầu, thế thôi
+                </p>
+            </field>
+        </record>
+        <record id="xemsach_tree" model="ir.ui.view">
+            <field name="name">Quản lý sách uiview</field>
+            <field name="model">quanlysach.book</field>
+            <field name="arch" type="xml">
+                <tree string="Sách">
+                    <field name="ten_sach"/>
+                    <field name="loaisach"/>
+                    <field name="ngay"/>
+                    <field name="giatri"/>
+                    <field name="tacgia_chinh"/>
+                    <field name="trangthai"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="xemsach_kanban" model="ir.ui.view">
+            <field name="name">Quản lý sách Kanban</field>
+            <field name="model">quanlysach.book</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="ten_sach"/>
+                    <field name="loaisach"/>
+                    <field name="ngay"/>
+                    <field name="giatri"/>
+                    <field name="tacgia_chinh"/>
+                    <field name="trangthai"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe-kanban_global_click">
+                                <img t-att-src="kanban_image('quanlysach.book', 'image', record.id.value)"
+                                     t-att-title="record.id.value"
+                                     width="64" height="64"
+                                     class="o_kanban_image pull-left"/>
+                                <div class="oe_kanban_details">
+                                    <strong>
+                                        <field name="ten_sach"/>
+                                    </strong>
+                                    <br/>
+                                    Loại sách:
+                                    <field name="loaisach"/>
+                                    Giá trị:
+                                    <field name="giatri"/>
+                                </div>
+
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="xemsach_form" model="ir.ui.view">
+            <field name="name">Sách</field>
+            <field name="model">quanlysach.book</field>
+            <field name="arch" type="xml">
+                <form string="Sách">
+                    <sheet>
+                        <field name="anh_bia" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <label for="ten_sach"/>
+                            <h1>
+                                <field name="ten_sach" placeholder="Tên sách"/>
+                            </h1>
+                        </div>
+                        <notebook>
+                            <page string="Thông tin sách">
+                                <group>
+                                    <group>
+                                        <field name="ma_sach"/>
+                                        <field name="loaisach"/>
+                                    </group>
+                                    <group>
+                                        <field name="ngay"/>
+                                        <field name="ngay_ban"/>
+                                        <field name="thoi_gian"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="soluong"/>
+                                        <field name="giagoc"/>
+                                    </group>
+                                    <group>
+                                        <field name="giatri"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="tacgia_chinh"/>
+                                    </group>
+                                    <group>
+                                        <field name="tacgia_phu" widget="many2many_tags"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <field name="trangthai"/>
+                                </group>
+                            </page>
+                            <page string="Mô tả">
+                                <group>
+                                    <field name="mote"/>
+                                </group>
+                                <group>
+                                    <field name="html"/>
+                                </group>
+
+
+                            </page>
+
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <menuitem id="quanlysach_menu" name="Header Quản lý sách" sequence="1"/>
+        <menuitem id="quanlysach_sach_menu" name="Left Menu Quản lý sách"
+                  parent="quanlysach_menu"
+                  action="quanlysach_sach_act" sequence="1"/>
+    </data>
+</odoo>
